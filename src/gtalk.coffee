@@ -110,9 +110,9 @@ class Gtalkbot extends Adapter
     if @options.regexpTrans?
       [reg, trans] = @options.regexpTrans.split("|")
       message = message.replace(new RegExp(reg), trans)
+      if(process.env.HUBOT_VERBOSE_LOGGING && process.env.HUBOT_VERBOSE_LOGGING.trim() != '')
+        console.log "transformed message body: " + message + " with pattern: " + reg + " and replacement: " + trans
 
-    if(process.env.HUBOT_VERBOSE_LOGGING && process.env.HUBOT_VERBOSE_LOGGING.trim() != '')
-      console.log "transformed message body: " + message
 
     # Pad the message with robot name just incase it was not provided.
     # Only pad if this is a direct chat
