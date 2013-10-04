@@ -124,6 +124,9 @@ class Gtalkbot extends Adapter
       else
         newRegex = new RegExp("^#{@name}[:,]?", "i")
 
+      if(process.env.HUBOT_VERBOSE_LOGGING && process.env.HUBOT_VERBOSE_LOGGING.trim() != '')
+        console.log "Alias was: " + @robot.alias + " alias now: " + alias
+
       # Prefix message if there is no match
       unless message.match(newRegex)
         message = (@name + " " ) + message
