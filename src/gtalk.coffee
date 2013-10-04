@@ -94,16 +94,25 @@ class Gtalkbot extends Adapter
       console.log "  Accepted Domains: " + @options.acceptDomains.join(',')
       return
 
+    if(process.env.HUBOT_VERBOSE_LOGGING && process.env.HUBOT_VERBOSE_LOGGING.trim() != '')
+      console.log "Handling message"
+
     # ignore empty bodies (i.e., topic changes -- maybe watch these someday)
     body = stanza.getChild 'body'
     return unless body
 
     message = body.getText()
 
+    if(process.env.HUBOT_VERBOSE_LOGGING && process.env.HUBOT_VERBOSE_LOGGING.trim() != '')
+      console.log "Message body: " + message
+
     # If we've configured some regexp transformations, apply them on the message
     if @options.regexpTrans?
       [reg, trans] = @options.regexpTrans.split("|")
       message = message.replace(new RegExp(reg), trans)
+
+    if(process.env.HUBOT_VERBOSE_LOGGING && process.env.HUBOT_VERBOSE_LOGGING.trim() != '')
+      console.log "transformed message body: " + message
 
     # Pad the message with robot name just incase it was not provided.
     # Only pad if this is a direct chat
