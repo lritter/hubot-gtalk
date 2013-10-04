@@ -59,7 +59,8 @@ class Gtalkbot extends Adapter
 
   readStanza: (stanza) ->
     # Useful for debugging
-    # console.log stanza
+    if(process.env.HUBOT_VERBOSE_LOGGING && process.env.HUBOT_VERBOSE_LOGGING.trim() != '')
+      console.log stanza
 
     # Check for erros
     if stanza.attrs.type is 'error'
